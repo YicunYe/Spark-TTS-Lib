@@ -1,11 +1,18 @@
+import os
 import time
 import numpy as np
 from spark_tts_lib.SparkTTS import SparkTTS
+from spark_tts_lib.download import download_pretrained_model
 
 
 def test_inference():
-    print("⌛️ Loading model...")
     model_dir = "pretrained_models/Spark-TTS-0.5B"
+    if not os.path.exists(model_dir):
+        print("🔃 Downloading pretrained model...")
+        download_pretrained_model(model_dir)
+        print("☑️ Downloaded pretrained model")
+
+    print("⌛️ Loading model...")
     model = SparkTTS(model_dir)
 
     text = "生活就像海洋，只有意志坚强的人才能到达彼岸。"
@@ -23,3 +30,5 @@ def test_inference():
     assert wav.ndim == 1
     assert len(wav) > 1000
     assert elapsed_time < 20
+
+    print("✅ Inference test passed")
