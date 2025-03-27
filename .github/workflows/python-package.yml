@@ -28,10 +28,9 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install pdm
     - name: Install dependencies
-      env:
-        PDM_DEV: "1"
       run: |
         pdm install
+        pdm add pytest flake8
     - name: Run linting
       run: |
         pdm run lint
