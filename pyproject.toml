@@ -1,0 +1,107 @@
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[project]
+name = "spark-tts-lib"
+version = "0.1.0"
+authors = [
+    { name = "YowFung", email = "yowfung@outlook.com" },
+    {name = "yowfung", email = "yowfung@outlook.com"},
+]
+description = "A Python library for voice cloning using Spark-TTS."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "websocket-client>=1.6.1",
+    "requests>=2.31.0",
+    "pydantic>=2.5.2",
+    "python-dotenv>=1.0.0",
+    "rich>=13.7.0",
+    "click>=8.1.7",
+    "typer>=0.9.0",
+    "uvicorn>=0.24.0",
+    "fastapi>=0.109.0",
+    "jinja2>=3.1.2",
+    "aiofiles>=23.2.1",
+    "python-multipart>=0.0.6",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Multimedia :: Sound/Audio :: Speech",
+]
+license = {text = "MIT"}
+
+[project.urls]
+"Homepage" = "https://github.com/YowFung/Spark-TTS-Lib"
+"Bug Tracker" = "https://github.com/YowFung/Spark-TTS-Lib/issues"
+"Documentation" = "https://github.com/YowFung/Spark-TTS-Lib#readme"
+
+[project.scripts]
+spark-tts = "sparktts.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["sparktts"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build]
+include = [
+    "sparktts/**/*.py",
+    "LICENSE",
+    "README.md",
+]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "sparktts/**/*.py",
+    "LICENSE",
+    "README.md",
+]
+
+[tool.pdm]
+distribution = true
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "isort>=5.0.0",
+    "mypy>=1.8.0",
+    "flake8>=7.0.0",
+    "commitizen>=3.10.0",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3 
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.1.0"
+tag_format = "v$version"
+bump_message = "bump: version $current_version → $new_version [skip ci]"
+update_changelog_on_bump = true
+major_version_zero = true
+version_files = [
+    "pyproject.toml:^version",
+    "src/sparktts/__init__.py:^__version__",
+]
+
+[tool.pdm.scripts]
+test = "pytest"
+commit = "cz commit"
+bump = "cz bump"
