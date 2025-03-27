@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -21,19 +20,27 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install pdm
+    - name: Install PDM
       run: |
         python -m pip install --upgrade pip
         python -m pip install pdm
     - name: Install dependencies
       run: |
-        pdm install -d
-    - name: Lint
+        pdm install --dev
+    - name: Run linting
       run: |
-        pdm lint
-    - name: Test
+        pdm run lint
+    - name: Run tests
       run: |
-        pdm test
+        pdm run test
+    - name: Build package
+      run: |
+        pdm build
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        path: ./dist/*
+        name: dist
