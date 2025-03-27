@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
 
     steps:
     - uses: actions/checkout@v4
@@ -31,7 +31,7 @@ jobs:
       env:
         PDM_DEV: "1"
       run: |
-        pdm install -G dev
+        pdm install
     - name: Run linting
       run: |
         pdm run lint
