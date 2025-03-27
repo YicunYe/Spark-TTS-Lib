@@ -1,2 +1,14 @@
 [flake8]
 extend-ignore = E203,E501,E741,F811,F841 
+exclude = 
+    .venv/*,
+    .pdm-build/*,
+    build/*,
+    dist/*,
+    site-packages/*,
+    .git,
+    .github,
+    .pytest_cache,
+    __pycache__,
+    .mypy_cache,
+    pretrained_models/*
