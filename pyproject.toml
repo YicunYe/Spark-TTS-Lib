@@ -13,18 +13,19 @@ description = "A Python library for voice cloning using Spark-TTS."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "websocket-client>=1.6.1",
-    "requests>=2.31.0",
-    "pydantic>=2.5.2",
-    "python-dotenv>=1.0.0",
-    "rich>=13.7.0",
-    "click>=8.1.7",
-    "typer>=0.9.0",
-    "uvicorn>=0.24.0",
-    "fastapi>=0.109.0",
-    "jinja2>=3.1.2",
-    "aiofiles>=23.2.1",
-    "python-multipart>=0.0.6",
+    "einops>=0.8.1",
+    "einx>=0.3.0",
+    "numpy>=2.2.3",
+    "omegaconf>=2.3.0",
+    "packaging>=24.2",
+    "safetensors>=0.5.2",
+    "soundfile>=0.12.1",
+    "soxr>=0.5.0.post1",
+    "torch>=2.5.1",
+    "torchaudio>=2.5.1",
+    "tqdm>=4.66.5",
+    "transformers>=4.46.2",
+    "huggingface-hub>=0.29.3",
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -72,13 +73,11 @@ include = [
 distribution = true
 [project.optional-dependencies]
 dev = [
-    "pytest>=7.0.0",
     "black>=23.0.0",
     "isort>=5.0.0",
     "mypy>=1.8.0",
     "flake8>=7.0.0",
     "commitizen>=3.10.0",
-    "huggingface-hub>=0.29.3",
 ]
 
 [tool.black]
@@ -103,7 +102,9 @@ version_files = [
 ]
 
 [tool.pdm.scripts]
-test = "pytest"
+format = "black . && isort ."
+check = "mypy . && flake8 ."
+lint = "black . && isort . && mypy . && flake8 ."
+example = "python examples/inference.py"
 commit = "cz commit"
 bump = "cz bump"
-example = "python examples/inference.py"
