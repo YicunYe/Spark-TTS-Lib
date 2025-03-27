@@ -2,14 +2,14 @@ import os
 import time
 import numpy as np
 from spark_tts_lib.SparkTTS import SparkTTS
-from spark_tts_lib.download import download_pretrained_model
+from spark_tts_lib.utils.download import download_pretrained_model
 
 
 def test_inference():
     model_dir = "pretrained_models/Spark-TTS-0.5B"
     if not os.path.exists(model_dir):
         print("🔃 Downloading pretrained model...")
-        download_pretrained_model(model_dir)
+        download_pretrained_model(model_dir=model_dir)
         print("☑️ Downloaded pretrained model")
 
     print("⌛️ Loading model...")

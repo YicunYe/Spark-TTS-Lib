@@ -24,7 +24,7 @@ from datetime import datetime
 import soundfile as sf
 import torch
 
-from spark_tts_lib.download import download_pretrained_model
+from spark_tts_lib.utils.download import download_pretrained_model
 from spark_tts_lib.SparkTTS import SparkTTS
 
 # Get the root directory
@@ -111,9 +111,9 @@ if __name__ == "__main__":
 
     # Download the pretrained model if it doesn't exist
     if not os.path.exists(args.model_dir):
-        logging.info(f"⌛️ Downloading pretrained model to: {args.model_dir}")
+        logging.info(f"🔃 Downloading pretrained model to: {args.model_dir}")
         download_pretrained_model(local_dir=args.model_dir)
-        logging.info("✅ Pretrained model downloaded.")
+        logging.info("☑️ Pretrained model downloaded.")
 
     # Perform TTS inference
     run_tts(args)
