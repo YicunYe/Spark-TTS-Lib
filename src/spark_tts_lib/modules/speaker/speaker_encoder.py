@@ -1,5 +1,6 @@
 # Copyright (c) 2025 SparkAudio
 #               2025 Xinsheng Wang (w.xinshawn@gmail.com)
+#               2025 YowFung (yowfung@outlook.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,9 +18,9 @@ import torch
 import torch.nn as nn
 
 from typing import List, Tuple
-from sparktts.modules.fsq.residual_fsq import ResidualFSQ
-from sparktts.modules.speaker.ecapa_tdnn import ECAPA_TDNN_GLOB_c512
-from sparktts.modules.speaker.perceiver_encoder import PerceiverResampler
+from spark_tts_lib.modules.fsq.residual_fsq import ResidualFSQ
+from spark_tts_lib.modules.speaker.ecapa_tdnn import ECAPA_TDNN_GLOB_c512
+from spark_tts_lib.modules.speaker.perceiver_encoder import PerceiverResampler
 
 """
 x-vector + d-vector

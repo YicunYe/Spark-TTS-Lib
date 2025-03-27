@@ -1,5 +1,6 @@
 # Copyright (c) 2025 SparkAudio
 #               2025 Xinsheng Wang (w.xinshawn@gmail.com)
+#               2025 YowFung (yowfung@outlook.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,8 +20,8 @@ import torch.nn as nn
 
 from typing import List
 
-from sparktts.modules.blocks.vocos import VocosBackbone
-from sparktts.modules.blocks.samper import SamplingBlock
+from spark_tts_lib.modules.blocks.vocos import VocosBackbone
+from spark_tts_lib.modules.blocks.samper import SamplingBlock
 
 
 class Encoder(nn.Module):

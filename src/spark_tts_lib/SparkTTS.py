@@ -1,5 +1,6 @@
 # Copyright (c) 2025 SparkAudio
 #               2025 Xinsheng Wang (w.xinshawn@gmail.com)
+#               2025 YowFung (yowfung@outlook.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,9 +20,9 @@ from typing import Tuple
 from pathlib import Path
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-from sparktts.utils.file import load_config
-from sparktts.models.audio_tokenizer import BiCodecTokenizer
-from sparktts.utils.token_parser import LEVELS_MAP, GENDER_MAP, TASK_TOKEN_MAP
+from spark_tts_lib.utils.file import load_config
+from spark_tts_lib.models.audio_tokenizer import BiCodecTokenizer
+from spark_tts_lib.utils.token_parser import LEVELS_MAP, GENDER_MAP, TASK_TOKEN_MAP
 
 
 class SparkTTS:

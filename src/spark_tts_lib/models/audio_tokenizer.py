@@ -1,5 +1,6 @@
 # Copyright (c) 2025 SparkAudio
 #               2025 Xinsheng Wang (w.xinshawn@gmail.com)
+#               2025 YowFung (yowfung@outlook.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,9 +22,9 @@ from pathlib import Path
 from typing import Any, Dict, Tuple
 from transformers import Wav2Vec2FeatureExtractor, Wav2Vec2Model
 
-from sparktts.utils.file import load_config
-from sparktts.utils.audio import load_audio
-from sparktts.models.bicodec import BiCodec
+from spark_tts_lib.utils.file import load_config
+from spark_tts_lib.utils.audio import load_audio
+from spark_tts_lib.models.bicodec import BiCodec
 
 
 class BiCodecTokenizer:

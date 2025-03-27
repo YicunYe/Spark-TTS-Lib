@@ -1,6 +1,7 @@
 # Copyright (c) 2025 SparkAudio
 #               2025 Xinsheng Wang (w.xinshawn@gmail.com)
-#
+#               2025 YowFung (yowfung@outlook.com)
+
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -22,7 +23,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from einops import rearrange
-from torch.nn.utils import weight_norm
+from torch.nn.utils.parametrizations import weight_norm
 
 
 def WNConv1d(*args, **kwargs):

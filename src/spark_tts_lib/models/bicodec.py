@@ -1,5 +1,6 @@
 # Copyright (c) 2025 SparkAudio
 #               2025 Xinsheng Wang (w.xinshawn@gmail.com)
+#               2025 YowFung (yowfung@outlook.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,12 +21,12 @@ from typing import Dict, Any
 from omegaconf import DictConfig
 from safetensors.torch import load_file
 
-from sparktts.utils.file import load_config
-from sparktts.modules.speaker.speaker_encoder import SpeakerEncoder
-from sparktts.modules.encoder_decoder.feat_encoder import Encoder
-from sparktts.modules.encoder_decoder.feat_decoder import Decoder
-from sparktts.modules.encoder_decoder.wave_generator import WaveGenerator
-from sparktts.modules.vq.factorized_vector_quantize import FactorizedVectorQuantize
+from spark_tts_lib.utils.file import load_config
+from spark_tts_lib.modules.speaker.speaker_encoder import SpeakerEncoder
+from spark_tts_lib.modules.encoder_decoder.feat_encoder import Encoder
+from spark_tts_lib.modules.encoder_decoder.feat_decoder import Decoder
+from spark_tts_lib.modules.encoder_decoder.wave_generator import WaveGenerator
+from spark_tts_lib.modules.vq.factorized_vector_quantize import FactorizedVectorQuantize
 
 
 class BiCodec(nn.Module):

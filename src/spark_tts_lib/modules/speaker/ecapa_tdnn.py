@@ -1,6 +1,7 @@
 # Copyright (c) 2021 Zhengyang Chen (chenzhengyang117@gmail.com)
 #               2022 Hongji Wang (jijijiang77@gmail.com)
 #               2023 Bing Han (hanbing97@sjtu.edu.cn)
+#               2025 YowFung (yowfung@outlook.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,7 +23,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-import sparktts.modules.speaker.pooling_layers as pooling_layers
+import spark_tts_lib.modules.speaker.pooling_layers as pooling_layers
 
 
 class Res2Conv1dReluBn(nn.Module):
