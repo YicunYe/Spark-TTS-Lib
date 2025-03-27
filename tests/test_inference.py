@@ -1,4 +1,3 @@
-import os
 import time
 import numpy as np
 from spark_tts_lib.SparkTTS import SparkTTS

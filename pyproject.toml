@@ -84,7 +84,7 @@ dev = [
 
 [tool.pdm.scripts]
 format = "sh -c 'black . && isort .'"
-flake8 = "flake8 ."
+lint = "flake8 ."
 test = "pytest tests/ -v -s"
 example = "python examples/inference.py"
 commit = "cz commit"
