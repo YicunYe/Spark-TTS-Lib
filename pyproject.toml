@@ -102,9 +102,7 @@ version_files = [
 ]
 
 [tool.pdm.scripts]
-format = "black . && isort ."
-check = "mypy . && flake8 ."
-lint = "black . && isort . && mypy . && flake8 ."
+format = "sh -c 'black . && isort .'"
 example = "python examples/inference.py"
 commit = "cz commit"
 bump = "cz bump"

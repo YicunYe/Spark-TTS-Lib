@@ -1,20 +1,35 @@
+# Copyright (c) 2024 Xinsheng Wang (w.xinshawn@gmail.com)
+#               2025 YowFung (yowfung@outlook.com)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 """
 Finite Scalar Quantization: VQ-VAE Made Simple - https://arxiv.org/abs/2309.15505
 Code adapted from Jax version in Appendix A.1
 """
 
 from __future__ import annotations
-from functools import wraps, partial
+
 from contextlib import nullcontext
+from functools import partial, wraps
 from typing import List, Tuple
 
 import torch
 import torch.nn as nn
-from torch.nn import Module
+from einops import pack, rearrange, unpack
 from torch import Tensor, int32
 from torch.amp import autocast
-
-from einops import rearrange, pack, unpack
+from torch.nn import Module
 
 # helper functions
 

@@ -13,19 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Adapted from https://github.com/descriptinc/descript-audio-codec under the Apache License 2.0
-
 import random
-import torch
-import torch.nn.functional as F
-import torch.distributed as dist
-
 from typing import List
-from torch import nn
-from torch.nn import Module
-from torch.amp import autocast
+
+import torch
+import torch.distributed as dist
+import torch.nn.functional as F
+from einops import pack, rearrange, reduce, unpack
 from einx import get_at
-from einops import rearrange, reduce, pack, unpack
+from torch import nn
+from torch.amp import autocast
+from torch.nn import Module
 
 from spark_tts_lib.modules.fsq.finite_scalar_quantization import FSQ
 

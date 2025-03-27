@@ -14,19 +14,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from pathlib import Path
+from typing import Any, Dict
+
 import torch
 import torch.nn as nn
-from pathlib import Path
-from typing import Dict, Any
 from omegaconf import DictConfig
 from safetensors.torch import load_file
 
-from spark_tts_lib.utils.file import load_config
-from spark_tts_lib.modules.speaker.speaker_encoder import SpeakerEncoder
-from spark_tts_lib.modules.encoder_decoder.feat_encoder import Encoder
 from spark_tts_lib.modules.encoder_decoder.feat_decoder import Decoder
+from spark_tts_lib.modules.encoder_decoder.feat_encoder import Encoder
 from spark_tts_lib.modules.encoder_decoder.wave_generator import WaveGenerator
+from spark_tts_lib.modules.speaker.speaker_encoder import SpeakerEncoder
 from spark_tts_lib.modules.vq.factorized_vector_quantize import FactorizedVectorQuantize
+from spark_tts_lib.utils.file import load_config
 
 
 class BiCodec(nn.Module):
@@ -44,7 +45,7 @@ class BiCodec(nn.Module):
         speaker_encoder: nn.Module,
         prenet: nn.Module,
         postnet: nn.Module,
-        **kwargs
+        **kwargs,
     ) -> None:
         """
         Initializes the BiCodec model with the required components.
@@ -74,12 +75,12 @@ class BiCodec(nn.Module):
 
         Args:
             model_dir (Path): Path to the model directory containing checkpoint and config.
-        
+
         Returns:
             BiCodec: The initialized BiCodec model.
         """
-        ckpt_path = f'{model_dir}/model.safetensors'
-        config = load_config(f'{model_dir}/config.yaml')['audio_tokenizer']
+        ckpt_path = f"{model_dir}/model.safetensors"
+        config = load_config(f"{model_dir}/config.yaml")["audio_tokenizer"]
         mel_params = config["mel_params"]
         encoder = Encoder(**config["encoder"])
         quantizer = FactorizedVectorQuantize(**config["quantizer"])
@@ -117,7 +118,7 @@ class BiCodec(nn.Module):
 
         Args:
             batch (dict): A dictionary containing features, reference waveform, and target waveform.
-        
+
         Returns:
             dict: A dictionary containing the reconstruction, features, and other metrics.
         """
@@ -213,6 +214,7 @@ class BiCodec(nn.Module):
 
     def remove_weight_norm(self):
         """Removes weight normalization from all layers."""
+
         def _remove_weight_norm(m):
             try:
                 torch.nn.utils.remove_weight_norm(m)

@@ -15,16 +15,16 @@
 # limitations under the License.
 
 
-import torch
-import numpy as np
-
 from pathlib import Path
 from typing import Any, Dict, Tuple
+
+import numpy as np
+import torch
 from transformers import Wav2Vec2FeatureExtractor, Wav2Vec2Model
 
-from spark_tts_lib.utils.file import load_config
-from spark_tts_lib.utils.audio import load_audio
 from spark_tts_lib.models.bicodec import BiCodec
+from spark_tts_lib.utils.audio import load_audio
+from spark_tts_lib.utils.file import load_config
 
 
 class BiCodecTokenizer:

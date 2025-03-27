@@ -15,13 +15,13 @@
 # limitations under the License.
 
 
+from typing import List
+
 import torch
 import torch.nn as nn
 
-from typing import List
-
-from spark_tts_lib.modules.blocks.vocos import VocosBackbone
 from spark_tts_lib.modules.blocks.samper import SamplingBlock
+from spark_tts_lib.modules.blocks.vocos import VocosBackbone
 
 
 class Encoder(nn.Module):

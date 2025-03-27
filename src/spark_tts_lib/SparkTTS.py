@@ -15,14 +15,15 @@
 # limitations under the License.
 
 import re
-import torch
-from typing import Tuple
 from pathlib import Path
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from typing import Tuple
 
-from spark_tts_lib.utils.file import load_config
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
 from spark_tts_lib.models.audio_tokenizer import BiCodecTokenizer
-from spark_tts_lib.utils.token_parser import LEVELS_MAP, GENDER_MAP, TASK_TOKEN_MAP
+from spark_tts_lib.utils.file import load_config
+from spark_tts_lib.utils.token_parser import GENDER_MAP, LEVELS_MAP, TASK_TOKEN_MAP
 
 
 class SparkTTS:
@@ -211,18 +212,30 @@ class SparkTTS:
         ]
 
         # Decode the generated tokens into text
-        predicts = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
+        predicts = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[
+            0
+        ]
 
         # Extract semantic token IDs from the generated text
         pred_semantic_ids = (
-            torch.tensor([int(token) for token in re.findall(r"bicodec_semantic_(\d+)", predicts)])
+            torch.tensor(
+                [
+                    int(token)
+                    for token in re.findall(r"bicodec_semantic_(\d+)", predicts)
+                ]
+            )
             .long()
             .unsqueeze(0)
         )
 
         if gender is not None:
             global_token_ids = (
-                torch.tensor([int(token) for token in re.findall(r"bicodec_global_(\d+)", predicts)])
+                torch.tensor(
+                    [
+                        int(token)
+                        for token in re.findall(r"bicodec_global_(\d+)", predicts)
+                    ]
+                )
                 .long()
                 .unsqueeze(0)
                 .unsqueeze(0)

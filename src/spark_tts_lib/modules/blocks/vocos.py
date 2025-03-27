@@ -1,6 +1,6 @@
 # Copyright (c) 2025 SparkAudio
 #               2025 Xinsheng Wang (w.xinshawn@gmail.com)
-#               2025 YowFung (yowfung@outlook.com)  
+#               2025 YowFung (yowfung@outlook.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,14 +15,12 @@
 # limitations under the License.
 
 
+from typing import Optional, Tuple
+
 import torch
 import torch.nn as nn
-
-from typing import Tuple
 from torch.nn.utils import remove_weight_norm
 from torch.nn.utils.parametrizations import weight_norm
-
-from typing import Optional
 
 
 class ConvNeXtBlock(nn.Module):

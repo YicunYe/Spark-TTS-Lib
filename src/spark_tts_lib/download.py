@@ -21,4 +21,3 @@ def download_pretrained_model(
 ):
     """Download the pretrained model."""
     snapshot_download(model_name, local_dir=local_dir)
-

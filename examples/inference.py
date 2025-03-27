@@ -15,17 +15,17 @@
 # limitations under the License.
 
 
-import os
-import time
-import torch
-import soundfile as sf
 import logging
-from datetime import datetime
+import os
 import platform
+import time
+from datetime import datetime
 
-from spark_tts_lib.SparkTTS import SparkTTS
+import soundfile as sf
+import torch
+
 from spark_tts_lib.download import download_pretrained_model
-
+from spark_tts_lib.SparkTTS import SparkTTS
 
 # Get the root directory
 root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,9 +40,9 @@ class Args:
     text = "生活就像海洋，只有意志坚强的人才能到达彼岸。某一天当你成功的时候，你是否会对着大海说： Thank you and fuck you!"
     prompt_speech_path = os.path.join(root_dir, "examples/prompt_audio.wav")
     prompt_text = "吃燕窝就选燕之屋，本节目由26年专注高品质燕窝的燕之屋冠名播出。豆奶牛奶换着喝，营养更均衡，本节目由豆本豆豆奶特约播出。"
-    gender = None        # female | male
-    pitch = None         # very_low | low | moderate | high | very_high
-    speed = 0.8          # very_low | low | moderate | high | very_high
+    gender = None  # female | male
+    pitch = None  # very_low | low | moderate | high | very_high
+    speed = 0.8  # very_low | low | moderate | high | very_high
     temperature = 0.8
     top_k = 50
     top_p = 0.95
@@ -101,6 +101,7 @@ def run_tts(args):
     # Calculate the elapsed time
     elapsed = time.time() - start_at
     logging.info(f"🕒 Inference elapsed time: {elapsed:.2f} seconds.")
+
 
 if __name__ == "__main__":
     logging.basicConfig(

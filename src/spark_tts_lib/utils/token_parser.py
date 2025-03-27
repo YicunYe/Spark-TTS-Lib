@@ -1,3 +1,19 @@
+# Copyright (c) 2025 SparkAudio
+#               2025 Xinsheng Wang (w.xinshawn@gmail.com)
+#               2025 YowFung (yowfung@outlook.com)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 TASK_TOKEN_MAP = {
     "vc": "<|task_vc|>",
     "tts": "<|task_tts|>",
@@ -19,13 +35,7 @@ LEVELS_MAP = {
     "very_high": 4,
 }
 
-LEVELS_MAP_UI = {
-    1: 'very_low',
-    2: 'low',
-    3: 'moderate',
-    4: 'high',
-    5: 'very_high'
-}
+LEVELS_MAP_UI = {1: "very_low", 2: "low", 3: "moderate", 4: "high", 5: "very_high"}
 
 GENDER_MAP = {
     "female": 0,
