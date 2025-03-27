@@ -78,6 +78,7 @@ dev = [
     "mypy>=1.8.0",
     "flake8>=7.0.0",
     "commitizen>=3.10.0",
+    "huggingface-hub>=0.29.3",
 ]
 
 [tool.black]
@@ -105,3 +106,4 @@ version_files = [
 test = "pytest"
 commit = "cz commit"
 bump = "cz bump"
+example = "python examples/inference.py"
