@@ -75,8 +75,6 @@ distribution = true
 dev = [
     "black>=23.0.0",
     "isort>=5.0.0",
-    "mypy>=1.8.0",
-    "flake8>=7.0.0",
     "commitizen>=3.10.0",
 ]
 
