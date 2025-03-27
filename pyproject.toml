@@ -79,11 +79,13 @@ dev = [
     "isort>=5.0.0",
     "commitizen>=3.10.0",
     "pdm-publish>=0.2.1",
+    "pytest>=8.3.5",
 ]
 
 [tool.pdm.scripts]
 format = "sh -c 'black . && isort .'"
 flake8 = "flake8 ."
+test = "pytest tests/ -v -s"
 example = "python examples/inference.py"
 commit = "cz commit"
 bump = "cz bump"
