@@ -19,7 +19,6 @@ from typing import Any, Dict
 
 import torch
 import torch.nn as nn
-from omegaconf import DictConfig
 from safetensors.torch import load_file
 
 from spark_tts_lib.modules.encoder_decoder.feat_decoder import Decoder

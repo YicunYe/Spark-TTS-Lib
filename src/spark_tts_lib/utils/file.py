@@ -25,7 +25,7 @@ import csv
 import json
 import os
 from pathlib import Path
-from typing import Any, Dict, List, Set, Union
+from typing import Any, Dict, List
 
 from omegaconf import DictConfig, OmegaConf
 from tqdm import tqdm

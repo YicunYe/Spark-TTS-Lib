@@ -34,6 +34,8 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
     "Topic :: Software Development :: Libraries :: Python Modules",
@@ -76,11 +78,19 @@ dev = [
     "black>=23.0.0",
     "isort>=5.0.0",
     "commitizen>=3.10.0",
+    "pdm-publish>=0.2.1",
 ]
 
+[tool.pdm.scripts]
+format = "sh -c 'black . && isort .'"
+flake8 = "flake8 ."
+example = "python examples/inference.py"
+commit = "cz commit"
+bump = "cz bump"
+
 [tool.black]
-line-length = 88
-target-version = ['py39']
+line-length = 120
+target-version = ['py312']
 include = '\.pyi?$'
 
 [tool.isort]
@@ -98,9 +108,3 @@ version_files = [
     "pyproject.toml:^version",
     "src/sparktts/__init__.py:^__version__",
 ]
-
-[tool.pdm.scripts]
-format = "sh -c 'black . && isort .'"
-example = "python examples/inference.py"
-commit = "cz commit"
-bump = "cz bump"

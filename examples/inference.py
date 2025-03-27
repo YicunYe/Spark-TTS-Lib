@@ -71,7 +71,7 @@ def run_tts(args):
         logging.info("GPU acceleration not available, using CPU")
 
     # Initialize the model
-    logging.info(f"⌛️ Initializing model...")
+    logging.info("⌛️ Initializing model...")
     model = SparkTTS(args.model_dir, device)
 
     # Generate unique filename using timestamp
@@ -104,9 +104,7 @@ def run_tts(args):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(
-        level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-    )
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
     # Initialize the arguments
     args = Args()
@@ -115,7 +113,7 @@ if __name__ == "__main__":
     if not os.path.exists(args.model_dir):
         logging.info(f"⌛️ Downloading pretrained model to: {args.model_dir}")
         download_pretrained_model(local_dir=args.model_dir)
-        logging.info(f"✅ Pretrained model downloaded.")
+        logging.info("✅ Pretrained model downloaded.")
 
     # Perform TTS inference
     run_tts(args)
