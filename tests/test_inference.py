@@ -9,7 +9,7 @@ def test_inference():
     model_dir = "pretrained_models/Spark-TTS-0.5B"
     if not os.path.exists(model_dir):
         print("🔃 Downloading pretrained model...")
-        download_pretrained_model(model_dir=model_dir)
+        download_pretrained_model(local_dir=model_dir)
         print("☑️ Downloaded pretrained model")
 
     print("⌛️ Loading model...")

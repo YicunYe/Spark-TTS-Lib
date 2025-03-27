@@ -46,7 +46,7 @@ def download_pretrained_model(
     token: str = None,
 ):
     """Download the pretrained model.
-    
+
     Args:
         model_name (str): The name of the model to download.
         local_dir (str): The local directory to save the model.
@@ -56,14 +56,14 @@ def download_pretrained_model(
     mirror = get_working_mirror()
     os.environ["HF_ENDPOINT"] = mirror
     os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "1"  # Enable acceleration
-    
+
     # If no token is provided, try to get it from the environment variable
     if token is None:
         token = os.environ.get("HUGGING_FACE_HUB_TOKEN")
-    
+
     # Ensure local_dir is an absolute path
     local_dir = os.path.abspath(local_dir)
-    
+
     snapshot_download(
         repo_id=model_name,
         local_dir=local_dir,
@@ -71,7 +71,7 @@ def download_pretrained_model(
         resume_download=True,
         token=token,
     )
-    
+
 
 if __name__ == "__main__":
     download_pretrained_model()
