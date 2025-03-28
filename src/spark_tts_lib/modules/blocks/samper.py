@@ -109,7 +109,5 @@ if __name__ == "__main__":
     output_down = model_down(test_input)
     print("shape after upsample * 2", output.shape)  # torch.Size([8, 1024, 100])
     print("shape after downsample * 2", output_down.shape)  # torch.Size([8, 1024, 25])
-    if output.shape == torch.Size([8, 1024, 100]) and output_down.shape == torch.Size(
-        [8, 1024, 25]
-    ):
+    if output.shape == torch.Size([8, 1024, 100]) and output_down.shape == torch.Size([8, 1024, 25]):
         print("test successful")

@@ -54,12 +54,8 @@ class SpeakerEncoder(nn.Module):
     ):
         super(SpeakerEncoder, self).__init__()
 
-        self.speaker_encoder = ECAPA_TDNN_GLOB_c512(
-            feat_dim=input_dim, embed_dim=out_dim
-        )
-        self.perceiver_sampler = PerceiverResampler(
-            dim=latent_dim, dim_context=512 * 3, num_latents=token_num
-        )
+        self.speaker_encoder = ECAPA_TDNN_GLOB_c512(feat_dim=input_dim, embed_dim=out_dim)
+        self.perceiver_sampler = PerceiverResampler(dim=latent_dim, dim_context=512 * 3, num_latents=token_num)
         self.quantizer = ResidualFSQ(
             levels=fsq_levels,
             num_quantizers=fsq_num_quantizers,

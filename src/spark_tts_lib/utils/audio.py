@@ -47,9 +47,7 @@ def audio_volume_normalize(audio: np.ndarray, coeff: float = 0.2) -> np.ndarray:
 
     # If the maximum value is less than 0.1, scale the array to have a maximum of 0.1
     if temp[-1] < 0.1:
-        scaling_factor = max(
-            temp[-1], 1e-3
-        )  # Prevent division by zero with a small constant
+        scaling_factor = max(temp[-1], 1e-3)  # Prevent division by zero with a small constant
         audio = audio / scaling_factor * 0.1
 
     # Filter out values less than 0.01 from temp
@@ -169,15 +167,11 @@ def stft(
         Tensor: Magnitude spectrogram (B, #frames, fft_size // 2 + 1).
     """
 
-    x_stft = torch.stft(
-        x, fft_size, hop_size, win_length, window.to(x.device), return_complex=True
-    )
+    x_stft = torch.stft(x, fft_size, hop_size, win_length, window.to(x.device), return_complex=True)
 
     # clamp is needed to avoid nan or inf
     if not use_complex:
-        return torch.sqrt(
-            torch.clamp(x_stft.real**2 + x_stft.imag**2, min=1e-7, max=1e3)
-        ).transpose(2, 1)
+        return torch.sqrt(torch.clamp(x_stft.real**2 + x_stft.imag**2, min=1e-7, max=1e3)).transpose(2, 1)
     else:
         res = torch.cat([x_stft.real.unsqueeze(1), x_stft.imag.unsqueeze(1)], dim=1)
         res = res.transpose(2, 3)  # [B, 2, T, F]
@@ -249,9 +243,7 @@ def remove_silence_on_both_ends(
     Raises:
         ValueError: If the audio contains only silence
     """
-    start, end = detect_speech_boundaries(
-        wav, sample_rate, window_duration, volume_threshold
-    )
+    start, end = detect_speech_boundaries(wav, sample_rate, window_duration, volume_threshold)
     return wav[start:end]
 
 

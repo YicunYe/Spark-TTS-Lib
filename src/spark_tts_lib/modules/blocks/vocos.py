@@ -43,17 +43,13 @@ class ConvNeXtBlock(nn.Module):
         condition_dim: Optional[int] = None,
     ):
         super().__init__()
-        self.dwconv = nn.Conv1d(
-            dim, dim, kernel_size=7, padding=3, groups=dim
-        )  # depthwise conv
+        self.dwconv = nn.Conv1d(dim, dim, kernel_size=7, padding=3, groups=dim)  # depthwise conv
         self.adanorm = condition_dim is not None
         if condition_dim:
             self.norm = AdaLayerNorm(condition_dim, dim, eps=1e-6)
         else:
             self.norm = nn.LayerNorm(dim, eps=1e-6)
-        self.pwconv1 = nn.Linear(
-            dim, intermediate_dim
-        )  # pointwise/1x1 convs, implemented with linear layers
+        self.pwconv1 = nn.Linear(dim, intermediate_dim)  # pointwise/1x1 convs, implemented with linear layers
         self.act = nn.GELU()
         self.pwconv2 = nn.Linear(intermediate_dim, dim)
         self.gamma = (
@@ -62,9 +58,7 @@ class ConvNeXtBlock(nn.Module):
             else None
         )
 
-    def forward(
-        self, x: torch.Tensor, cond_embedding_id: Optional[torch.Tensor] = None
-    ) -> torch.Tensor:
+    def forward(self, x: torch.Tensor, cond_embedding_id: Optional[torch.Tensor] = None) -> torch.Tensor:
         residual = x
         x = self.dwconv(x)
         x = x.transpose(1, 2)  # (B, C, T) -> (B, T, C)
@@ -209,23 +203,17 @@ class ResBlock1(nn.Module):
         self.gamma = nn.ParameterList(
             [
                 (
-                    nn.Parameter(
-                        layer_scale_init_value * torch.ones(dim, 1), requires_grad=True
-                    )
+                    nn.Parameter(layer_scale_init_value * torch.ones(dim, 1), requires_grad=True)
                     if layer_scale_init_value is not None
                     else None
                 ),
                 (
-                    nn.Parameter(
-                        layer_scale_init_value * torch.ones(dim, 1), requires_grad=True
-                    )
+                    nn.Parameter(layer_scale_init_value * torch.ones(dim, 1), requires_grad=True)
                     if layer_scale_init_value is not None
                     else None
                 ),
                 (
-                    nn.Parameter(
-                        layer_scale_init_value * torch.ones(dim, 1), requires_grad=True
-                    )
+                    nn.Parameter(layer_scale_init_value * torch.ones(dim, 1), requires_grad=True)
                     if layer_scale_init_value is not None
                     else None
                 ),
@@ -355,15 +343,10 @@ class VocosResNetBackbone(Backbone):
     ):
         super().__init__()
         self.input_channels = input_channels
-        self.embed = weight_norm(
-            nn.Conv1d(input_channels, dim, kernel_size=3, padding=1)
-        )
+        self.embed = weight_norm(nn.Conv1d(input_channels, dim, kernel_size=3, padding=1))
         layer_scale_init_value = layer_scale_init_value or 1 / num_blocks / 3
         self.resnet = nn.Sequential(
-            *[
-                ResBlock1(dim=dim, layer_scale_init_value=layer_scale_init_value)
-                for _ in range(num_blocks)
-            ]
+            *[ResBlock1(dim=dim, layer_scale_init_value=layer_scale_init_value) for _ in range(num_blocks)]
         )
 
     def forward(self, x: torch.Tensor, **kwargs) -> torch.Tensor:

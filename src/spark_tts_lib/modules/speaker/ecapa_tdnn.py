@@ -100,9 +100,7 @@ class Conv1dReluBn(nn.Module):
         bias=True,
     ):
         super().__init__()
-        self.conv = nn.Conv1d(
-            in_channels, out_channels, kernel_size, stride, padding, dilation, bias=bias
-        )
+        self.conv = nn.Conv1d(in_channels, out_channels, kernel_size, stride, padding, dilation, bias=bias)
         self.bn = nn.BatchNorm1d(out_channels)
 
     def forward(self, x):
@@ -139,9 +137,7 @@ class SE_Res2Block(nn.Module):
         super().__init__()
         self.se_res2block = nn.Sequential(
             Conv1dReluBn(channels, channels, kernel_size=1, stride=1, padding=0),
-            Res2Conv1dReluBn(
-                channels, kernel_size, stride, padding, dilation, scale=scale
-            ),
+            Res2Conv1dReluBn(channels, kernel_size, stride, padding, dilation, scale=scale),
             Conv1dReluBn(channels, channels, kernel_size=1, stride=1, padding=0),
             SE_Connect(channels),
         )
@@ -164,22 +160,14 @@ class ECAPA_TDNN(nn.Module):
         super().__init__()
 
         self.layer1 = Conv1dReluBn(feat_dim, channels, kernel_size=5, padding=2)
-        self.layer2 = SE_Res2Block(
-            channels, kernel_size=3, stride=1, padding=2, dilation=2, scale=8
-        )
-        self.layer3 = SE_Res2Block(
-            channels, kernel_size=3, stride=1, padding=3, dilation=3, scale=8
-        )
-        self.layer4 = SE_Res2Block(
-            channels, kernel_size=3, stride=1, padding=4, dilation=4, scale=8
-        )
+        self.layer2 = SE_Res2Block(channels, kernel_size=3, stride=1, padding=2, dilation=2, scale=8)
+        self.layer3 = SE_Res2Block(channels, kernel_size=3, stride=1, padding=3, dilation=3, scale=8)
+        self.layer4 = SE_Res2Block(channels, kernel_size=3, stride=1, padding=4, dilation=4, scale=8)
 
         cat_channels = channels * 3
         out_channels = 512 * 3
         self.conv = nn.Conv1d(cat_channels, out_channels, kernel_size=1)
-        self.pool = getattr(pooling_layers, pooling_func)(
-            in_dim=out_channels, global_context_att=global_context_att
-        )
+        self.pool = getattr(pooling_layers, pooling_func)(in_dim=out_channels, global_context_att=global_context_att)
         self.pool_out_dim = self.pool.get_out_dim()
         self.bn = nn.BatchNorm1d(self.pool_out_dim)
         self.linear = nn.Linear(self.pool_out_dim, embed_dim)

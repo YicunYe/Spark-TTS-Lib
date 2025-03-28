@@ -70,18 +70,12 @@ class SparkTTS:
             Tuple[str, torch.Tensor]: Input prompt; global tokens
         """
 
-        global_token_ids, semantic_token_ids = self.audio_tokenizer.tokenize(
-            prompt_speech_path
-        )
-        global_tokens = "".join(
-            [f"<|bicodec_global_{i}|>" for i in global_token_ids.squeeze()]
-        )
+        global_token_ids, semantic_token_ids = self.audio_tokenizer.tokenize(prompt_speech_path)
+        global_tokens = "".join([f"<|bicodec_global_{i}|>" for i in global_token_ids.squeeze()])
 
         # Prepare the input tokens for the model
         if prompt_text is not None:
-            semantic_tokens = "".join(
-                [f"<|bicodec_semantic_{i}|>" for i in semantic_token_ids.squeeze()]
-            )
+            semantic_tokens = "".join([f"<|bicodec_semantic_{i}|>" for i in semantic_token_ids.squeeze()])
             inputs = [
                 TASK_TOKEN_MAP["tts"],
                 "<|start_content|>",
@@ -140,9 +134,7 @@ class SparkTTS:
         speed_label_tokens = f"<|speed_label_{speed_level_id}|>"
         gender_tokens = f"<|gender_{gender_id}|>"
 
-        attribte_tokens = "".join(
-            [gender_tokens, pitch_label_tokens, speed_label_tokens]
-        )
+        attribte_tokens = "".join([gender_tokens, pitch_label_tokens, speed_label_tokens])
 
         control_tts_inputs = [
             TASK_TOKEN_MAP["controllable_tts"],
@@ -190,9 +182,7 @@ class SparkTTS:
             prompt = self.process_prompt_control(gender, pitch, speed, text)
 
         else:
-            prompt, global_token_ids = self.process_prompt(
-                text, prompt_speech_path, prompt_text
-            )
+            prompt, global_token_ids = self.process_prompt(text, prompt_speech_path, prompt_text)
         model_inputs = self.tokenizer([prompt], return_tensors="pt").to(self.device)
 
         # Generate speech using the model
@@ -207,35 +197,20 @@ class SparkTTS:
 
         # Trim the output tokens to remove the input tokens
         generated_ids = [
-            output_ids[len(input_ids) :]
-            for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
+            output_ids[len(input_ids) :] for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
         ]
 
         # Decode the generated tokens into text
-        predicts = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[
-            0
-        ]
+        predicts = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
 
         # Extract semantic token IDs from the generated text
         pred_semantic_ids = (
-            torch.tensor(
-                [
-                    int(token)
-                    for token in re.findall(r"bicodec_semantic_(\d+)", predicts)
-                ]
-            )
-            .long()
-            .unsqueeze(0)
+            torch.tensor([int(token) for token in re.findall(r"bicodec_semantic_(\d+)", predicts)]).long().unsqueeze(0)
         )
 
         if gender is not None:
             global_token_ids = (
-                torch.tensor(
-                    [
-                        int(token)
-                        for token in re.findall(r"bicodec_global_(\d+)", predicts)
-                    ]
-                )
+                torch.tensor([int(token) for token in re.findall(r"bicodec_global_(\d+)", predicts)])
                 .long()
                 .unsqueeze(0)
                 .unsqueeze(0)

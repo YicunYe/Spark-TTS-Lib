@@ -13,9 +13,9 @@
 # limitations under the License.
 
 import os
-from retrying import retry
-from huggingface_hub import snapshot_download, HfApi
 
+from huggingface_hub import HfApi, snapshot_download
+from retrying import retry
 
 # Available mirror sites
 MIRROR_SITES = [

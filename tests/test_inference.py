@@ -1,9 +1,10 @@
 import os
-import pytest
-from pathlib import Path
 import time
+
 import numpy as np
+import pytest
 import torch
+
 from spark_tts_lib.SparkTTS import SparkTTS
 from spark_tts_lib.utils.download import download_pretrained_model
 
@@ -21,7 +22,7 @@ def run_inference_test(device: torch.device):
         print("☑️ Downloaded pretrained model.")
 
     print("⌛️ Loading model...")
-    start_at = time.time()  
+    start_at = time.time()
     model = SparkTTS(model_dir, device)
     elapsed_time = time.time() - start_at
     print(f"☑️ Model loaded in {elapsed_time:.2f} seconds.")

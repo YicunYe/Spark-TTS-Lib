@@ -183,9 +183,7 @@ def save_metadata(data, filename, headers=None):
         file.write("|".join(headers) + "\n")
         for entry in data:
             # Retrieve values in the order of headers, replacing any '|' characters with a space to prevent formatting errors
-            formatted_values = [
-                str(entry.get(key, "")).replace("|", " ") for key in headers
-            ]
+            formatted_values = [str(entry.get(key, "")).replace("|", " ") for key in headers]
             # Write the formatted values to the file
             file.write("|".join(formatted_values) + "\n")
 

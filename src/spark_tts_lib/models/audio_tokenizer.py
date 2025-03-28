@@ -44,15 +44,11 @@ class BiCodecTokenizer:
 
     def _initialize_model(self):
         """Load and initialize the BiCodec model and Wav2Vec2 feature extractor."""
-        self.model = BiCodec.load_from_checkpoint(f"{self.model_dir}/BiCodec").to(
+        self.model = BiCodec.load_from_checkpoint(f"{self.model_dir}/BiCodec").to(self.device)
+        self.processor = Wav2Vec2FeatureExtractor.from_pretrained(f"{self.model_dir}/wav2vec2-large-xlsr-53")
+        self.feature_extractor = Wav2Vec2Model.from_pretrained(f"{self.model_dir}/wav2vec2-large-xlsr-53").to(
             self.device
         )
-        self.processor = Wav2Vec2FeatureExtractor.from_pretrained(
-            f"{self.model_dir}/wav2vec2-large-xlsr-53"
-        )
-        self.feature_extractor = Wav2Vec2Model.from_pretrained(
-            f"{self.model_dir}/wav2vec2-large-xlsr-53"
-        ).to(self.device)
         self.feature_extractor.config.output_hidden_states = True
 
     def get_ref_clip(self, wav: np.ndarray) -> np.ndarray:
@@ -93,9 +89,7 @@ class BiCodecTokenizer:
             output_hidden_states=True,
         ).input_values
         feat = self.feature_extractor(inputs.to(self.feature_extractor.device))
-        feats_mix = (
-            feat.hidden_states[11] + feat.hidden_states[14] + feat.hidden_states[16]
-        ) / 3
+        feats_mix = (feat.hidden_states[11] + feat.hidden_states[14] + feat.hidden_states[16]) / 3
 
         return feats_mix
 
@@ -130,9 +124,7 @@ class BiCodecTokenizer:
 
         return global_tokens, semantic_tokens
 
-    def detokenize(
-        self, global_tokens: torch.Tensor, semantic_tokens: torch.Tensor
-    ) -> np.array:
+    def detokenize(self, global_tokens: torch.Tensor, semantic_tokens: torch.Tensor) -> np.array:
         """detokenize the tokens to waveform
 
         Args:

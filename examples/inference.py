@@ -24,8 +24,8 @@ from datetime import datetime
 import soundfile as sf
 import torch
 
-from spark_tts_lib.utils.download import download_pretrained_model
 from spark_tts_lib.SparkTTS import SparkTTS
+from spark_tts_lib.utils.download import download_pretrained_model
 
 # Get the root directory
 root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,7 +37,9 @@ class Args:
     model_dir = os.path.join(root_dir, "pretrained_models/Spark-TTS-0.5B")
     save_dir = os.path.join(root_dir, "examples/results")
     device = 0
-    text = "生活就像海洋，只有意志坚强的人才能到达彼岸。某一天当你成功的时候，你是否会对着大海说： Thank you and fuck you!"
+    text = (
+        "生活就像海洋，只有意志坚强的人才能到达彼岸。某一天当你成功的时候，你是否会对着大海说： Thank you and fuck you!"
+    )
     prompt_speech_path = os.path.join(root_dir, "examples/prompt_audio.wav")
     prompt_text = "吃燕窝就选燕之屋，本节目由26年专注高品质燕窝的燕之屋冠名播出。豆奶牛奶换着喝，营养更均衡，本节目由豆本豆豆奶特约播出。"
     gender = None  # female | male

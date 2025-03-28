@@ -109,23 +109,15 @@ class FactorizedVectorQuantize(nn.Module):
             active_num = sum(self.cluster_size > self.threshold_ema_dead_code)
 
         if self.training:
-            commit_loss = (
-                F.mse_loss(z_e, z_q.detach(), reduction="none").mean([1, 2])
-                * self.commitment
-            )
+            commit_loss = F.mse_loss(z_e, z_q.detach(), reduction="none").mean([1, 2]) * self.commitment
 
-            codebook_loss = (
-                F.mse_loss(z_q, z_e.detach(), reduction="none").mean([1, 2])
-                * self.codebook_loss_weight
-            )
+            codebook_loss = F.mse_loss(z_q, z_e.detach(), reduction="none").mean([1, 2]) * self.codebook_loss_weight
 
         else:
             commit_loss = torch.zeros(0, device=z.device)
             codebook_loss = torch.zeros(0, device=z.device)
 
-        z_q = (
-            z_e + (z_q - z_e).detach()
-        )  # noop in forward pass, straight-through gradient estimator in backward pass
+        z_q = z_e + (z_q - z_e).detach()  # noop in forward pass, straight-through gradient estimator in backward pass
 
         z_q = self.out_project(z_q)
 

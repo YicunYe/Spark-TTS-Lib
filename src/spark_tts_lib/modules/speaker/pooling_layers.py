@@ -103,16 +103,10 @@ class ASTP(nn.Module):
         # Use Conv1d with stride == 1 rather than Linear, then we don't
         # need to transpose inputs.
         if global_context_att:
-            self.linear1 = nn.Conv1d(
-                in_dim * 3, bottleneck_dim, kernel_size=1
-            )  # equals W and b in the paper
+            self.linear1 = nn.Conv1d(in_dim * 3, bottleneck_dim, kernel_size=1)  # equals W and b in the paper
         else:
-            self.linear1 = nn.Conv1d(
-                in_dim, bottleneck_dim, kernel_size=1
-            )  # equals W and b in the paper
-        self.linear2 = nn.Conv1d(
-            bottleneck_dim, in_dim, kernel_size=1
-        )  # equals V and k in the paper
+            self.linear1 = nn.Conv1d(in_dim, bottleneck_dim, kernel_size=1)  # equals W and b in the paper
+        self.linear2 = nn.Conv1d(bottleneck_dim, in_dim, kernel_size=1)  # equals V and k in the paper
 
     def forward(self, x):
         """
@@ -126,9 +120,7 @@ class ASTP(nn.Module):
 
         if self.global_context_att:
             context_mean = torch.mean(x, dim=-1, keepdim=True).expand_as(x)
-            context_std = torch.sqrt(
-                torch.var(x, dim=-1, keepdim=True) + 1e-7
-            ).expand_as(x)
+            context_std = torch.sqrt(torch.var(x, dim=-1, keepdim=True) + 1e-7).expand_as(x)
             x_in = torch.cat((x, context_mean, context_std), dim=1)
         else:
             x_in = x
@@ -153,13 +145,9 @@ class MHASTP(torch.nn.Module):
         https://arxiv.org/pdf/1906.09890.pdf
     """
 
-    def __init__(
-        self, in_dim, layer_num=2, head_num=2, d_s=1, bottleneck_dim=64, **kwargs
-    ):
+    def __init__(self, in_dim, layer_num=2, head_num=2, d_s=1, bottleneck_dim=64, **kwargs):
         super(MHASTP, self).__init__()
-        assert (
-            in_dim % head_num
-        ) == 0  # make sure that head num can be divided by input_dim
+        assert (in_dim % head_num) == 0  # make sure that head num can be divided by input_dim
         self.in_dim = in_dim
         self.head_num = head_num
         d_model = int(in_dim / head_num)
@@ -193,9 +181,7 @@ class MHASTP(torch.nn.Module):
             0-dim: batch-dimension, last-dim: time-dimension (frame-dimension)
         """
         if len(input.shape) == 4:  # B x F x T
-            input = input.reshape(
-                input.shape[0], input.shape[1] * input.shape[2], input.shape[3]
-            )
+            input = input.reshape(input.shape[0], input.shape[1] * input.shape[2], input.shape[3])
         assert len(input.shape) == 3
         bs, f_dim, t_dim = input.shape
         chunks = torch.chunk(input, self.head_num, 1)
@@ -273,9 +259,7 @@ class MQMHASTP(torch.nn.Module):
             0-dim: batch-dimension, last-dim: time-dimension (frame-dimension)
         """
         if len(input.shape) == 4:  # B x F x T
-            input = input.reshape(
-                input.shape[0], input.shape[1] * input.shape[2], input.shape[3]
-            )
+            input = input.reshape(input.shape[0], input.shape[1] * input.shape[2], input.shape[3])
         assert len(input.shape) == 3
         res = []
         for i, layer in enumerate(self.n_query):
