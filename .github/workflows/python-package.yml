@@ -37,7 +37,7 @@ jobs:
       env:
         HUGGING_FACE_HUB_TOKEN: ${{ secrets.HUGGING_FACE_HUB_TOKEN }}
       run: |
-        pdm run pytest tests/test_inference.py:test_inference_use_cpu
+        pdm test
     - name: Build package  # 构建包
       run: |
         pdm build
