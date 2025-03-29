@@ -45,7 +45,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         path: ./dist/*
-        name: dist
+        name: dist-py${{ matrix.python-version }}
     - uses: actions/cache@v3  # 缓存模型文件
       with:
         path: ./pretrained_models
