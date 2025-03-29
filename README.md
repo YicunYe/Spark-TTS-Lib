@@ -15,19 +15,19 @@
 </div>
 
 
-## Install 
+## 📦 Install 
 
 ```bash
 pip install spark-tts-lib
 ```
 
 
-## Usage
+## 🚀 Usage
 
 Model download:
 
 ```python
-from spark_tts_lib.download import download_pretrained_model
+from spark_tts_lib.utils.download import download_pretrained_model
 
 download_pretrained_model()
 ```
