@@ -18,5 +18,5 @@ Spark-TTS Library - A Python package for Spark-TTS.
 from .SparkTTS import SparkTTS
 from .utils.download import download_pretrained_model
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __all__ = ["SparkTTS", "download_pretrained_model"]
