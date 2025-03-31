@@ -31,7 +31,7 @@ class SparkTTS:
     Spark-TTS for text-to-speech generation.
     """
 
-    def __init__(self, model_dir: Path, device: torch.device = torch.device("cuda:0")):
+    def __init__(self, model_dir: Path | str | None = None, device: torch.device = torch.device("cuda:0")):
         """
         Initializes the SparkTTS model with the provided configurations and device.
 
@@ -40,6 +40,10 @@ class SparkTTS:
             device (torch.device): The device (CPU/GPU) to run the model on.
         """
         self.device = device
+        if model_dir is None:
+            model_dir = Path("pretrained_models/Spark-TTS-0.5B")
+        elif isinstance(model_dir, str):
+            model_dir = Path(model_dir)
         self.model_dir = model_dir
         self.configs = load_config(f"{model_dir}/config.yaml")
         self.sample_rate = self.configs["sample_rate"]
