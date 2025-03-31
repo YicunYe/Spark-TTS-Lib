@@ -7,9 +7,7 @@
     </p>
     <p>
     </p>
-    <a href="https://huggingface.co/SparkAudio/Spark-TTS-0.5B"><img src="https://img.shields.io/badge/Hugging%20Face-Model%20Page-yellow" alt="Hugging Face"></a>
-    <a href="https://github.com/SparkAudio/Spark-TTS"><img src="https://img.shields.io/badge/Platform-linux-lightgrey" alt="version"></a>
-    <a href="https://github.com/SparkAudio/Spark-TTS"><img src="https://img.shields.io/badge/Python-3.12+-orange" alt="version"></a>
+    <a href="https://github.com/SparkAudio/Spark-TTS"><img src="https://img.shields.io/badge/Python-3.10+-orange" alt="version"></a>
     <a href="https://github.com/SparkAudio/Spark-TTS"><img src="https://img.shields.io/badge/PyTorch-2.5+-brightgreen" alt="python"></a>
     <a href="https://github.com/SparkAudio/Spark-TTS"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="mit"></a>
 </div>
@@ -21,13 +19,21 @@
 pip install spark-tts-lib
 ```
 
+## 🌟 Sample Example
+
+```python
+from spark_tts_lib import SparkTTS
+
+model = SparkTTS()
+wav_data = model.inference(text="Hello, world!")
+```
 
 ## 🚀 Usage
 
-Model download:
+**Download the pretrained model:**
 
 ```python
-from spark_tts_lib.utils.download import download_pretrained_model
+from spark_tts_lib import download_pretrained_model
 
 download_pretrained_model()
 ```
@@ -37,41 +43,66 @@ download_pretrained_model()
 > ```python
 > download_pretrained_model(local_dir="/path/to/save/model")
 > ```
+> You can also download the model from the [Hugging Face](https://huggingface.co/SparkAudio/Spark-TTS-0.5B) page.
 
-Inference:
+**Import SparkTTS:**
 
 ```python
-from spark_tts_lib.SparkTTS import SparkTTS
-
-# Initialize the model
-model_dir = "pretrained_models/Spark-TTS-0.5B"
-model = SparkTTS(model_dir)
-
-# Perform inference and get the generated audio data
-wav_data = model.inference(
-    text="This is the text you want to synthesize into speech.",
-    prompt_speech_path="prompt_audio.wav",
-    prompt_text="This is the text corresponding to your reference audio.",
-)
-
-# Save or use the generated audio data
-# ...
+from spark_tts_lib import SparkTTS
 ```
 
-Set the `temperature`, `top_k`, `top_p` to control the generated audio:
+**Initialize the model:**
+
+```python
+model = SparkTTS()
+```
+
+> If you want to specify the model directory, you can do it like this:
+> 
+> ```python
+> model_dir = "pretrained_models/Spark-TTS-0.5B"
+> model = SparkTTS(model_dir)
+> ```
+
+**Perform voice creation inference:**
+
+```python
+text = "This is the text you want to synthesize into speech."
+gender = "female" # "male"
+pitch = "high" # "very_low" | "low" | "moderate" | "high" | "very_high"
+speed = "high" # "very_low" | "low" | "moderate" | "high" | "very_high"
+
+wav_data = model.inference(text=text, gender=gender, pitch=pitch, speed=speed)
+```
+
+**Perform voice cloning inference:**
+
+```python
+text = "This is the text you want to synthesize into speech."
+prompt_speech_path = "prompt_audio.wav"
+prompt_text = "This is the text corresponding to your reference audio."
+
+wav_data = model.inference(
+    text=text,
+    prompt_speech_path=prompt_speech_path,
+    prompt_text=prompt_text,
+)
+```
+
+**Inference with more parameters:**
 
 ```python
 model.inference(
-    text="...",
-    prompt_speech_path="...",
-    prompt_text="...",
+    ...
     temperature=0.8,
     top_k=50,
     top_p=0.95,
 )
 ```
 
-> You can use more parameters and more components, please refer to the [Spark-TTS](https://github.com/SparkAudio/Spark-TTS) for more details.
+## 📚 More information
+
+Please refer to the [Spark-TTS](https://github.com/SparkAudio/Spark-TTS) for more details.
 
 
 ## ⚠️ Usage Disclaimer
