@@ -4,7 +4,7 @@ build-backend = "pdm.backend"
 
 [project]
 name = "spark-tts-lib"
-version = "0.2.0"
+version = "0.2.1"
 authors = [
     { name = "YowFung", email = "yowfung@outlook.com" },
     {name = "yowfung", email = "yowfung@outlook.com"},
@@ -112,7 +112,7 @@ multi_line_output = 3
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.2.0"
+version = "0.2.1"
 tag_format = "v$version"
 bump_message = "bump: version $current_version → $new_version"
 update_changelog_on_bump = true
