@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-Spark-TTS Library - A Python library for voice cloning using Spark-TTS.
+Spark-TTS Library - A Python package for Spark-TTS.
 """
 
 __version__ = "0.1.0"

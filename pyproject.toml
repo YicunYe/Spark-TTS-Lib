@@ -9,7 +9,7 @@ authors = [
     { name = "YowFung", email = "yowfung@outlook.com" },
     {name = "yowfung", email = "yowfung@outlook.com"},
 ]
-description = "A Python library for voice cloning using Spark-TTS."
+description = "A Python package for Spark-TTS."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [

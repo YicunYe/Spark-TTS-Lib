@@ -3,7 +3,7 @@
     Spark-TTS-Lib
     </h1>
     <p>
-    A Python library for <b><em><a href="https://github.com/SparkAudio/Spark-TTS">Spark-TTS</a></em></b>
+    A Python package for <b><em><a href="https://github.com/SparkAudio/Spark-TTS">Spark-TTS</a></em></b>
     </p>
     <p>
     </p>
