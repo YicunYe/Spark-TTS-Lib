@@ -27,12 +27,10 @@ MIRROR_SITES = [
 
 def get_working_mirror():
     """Test and return a working mirror site"""
-    api = HfApi()
     for mirror in MIRROR_SITES:
         try:
-            os.environ["HF_ENDPOINT"] = mirror
             # Try accessing a public model to test connection
-            api.model_info("gpt2")
+            HfApi(endpoint=mirror).model_info(repo_id="deepseek-ai/DeepSeek-R1")
             return mirror
         except Exception as e:
             continue
@@ -54,7 +52,6 @@ def download_pretrained_model(
     """
     # Get a working mirror
     mirror = get_working_mirror()
-    os.environ["HF_ENDPOINT"] = mirror
     os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "1"  # Enable acceleration
 
     # If no token is provided, try to get it from the environment variable
@@ -65,6 +62,7 @@ def download_pretrained_model(
     local_dir = os.path.abspath(local_dir)
 
     snapshot_download(
+        endpoint=mirror
         repo_id=model_name,
         local_dir=local_dir,
         token=token,
